@@ -1,21 +1,42 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="bg-info" style="text-align:center">
+  
+  <span class="app-title display-1 .text-primary">
+    {{ appTitle }}!
+  </span>
+
+  <div class="display-2 pt-5 pb-5 " id="timer-section">
+    <span > {{time.minutes || '00'}} </span>
+    <span class="colon"><strong class="text-danger">:</strong></span>
+    <span> {{time.seconds || '00'}} </span>
+    <span class="colon"><strong class="text-danger">:</strong></span>
+    <span> {{time.millis || '00'}} </span>
+  </div>
+
+  <div id="button-section mb-50">
+    <!-- Bootstrap - buttons version
+    <button type="button" id="start" class="btn btn-success"    (click)="startTimer()" >Start</button>
+    <button type="button" id="pause" class="btn btn-secondary"  (click)="temporaryStopTimer()" >Pause</button>
+    <button type="button" id="reset" class="btn btn-danger"     (click)="resetTimer()" >Reset</button>
+    <button type="button" id="save"  class="btn btn-warning"    (click)="addRecordToLapList()">Save Result</button>
+    -->
+    <fa name="play-circle"  id="start"   class="text-success fa-4x p-2"   (click)="startTimer()"          title="Press to start count"></fa>
+    <fa name="pause-circle" id="pause"   class="text-warning fa-4x p-2"   (click)="temporaryStopTimer()"  title="Press to pause count" ></fa>
+    <fa name="stop-circle"  id="reset"   class="text-danger fa-4x p-2"    (click)="resetTimer()"          title="Press to reset timer, NOT record list below"></fa>
+    <fa name="save"         id="save"    class="fa-4x p-2"                (click)="addRecordToLapList()"  title="Press to add current recorded time to list below"></fa>
+    <fa name="trash"        id="erase"   class="text-primary fa-4x p-2"   (click)="removeAllLaps()"       title="Press to remove all below records!" *ngIf="anyRecordsPresent"></fa>
+    
+  </div>
+
+
+  <ul class="list-group list-group-flush" >
+    <li class="list-group-item-primary display-3" id="ul-records" *ngFor="let lap of state.lapTimes; let i = index">
+      {{ lap.id }}) {{ lap.minutes }}:{{ lap.seconds }}.{{ lap.millis }}
+      <button (click)="removeLap(i)" class="remove btn btn-dark col-1">Delete</button>
+    </li>
+  </ul>
+  
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+
 
 <router-outlet></router-outlet>
